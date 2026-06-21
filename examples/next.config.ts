@@ -23,18 +23,16 @@ const nextConfig: NextConfig = {
     default: require.resolve("./cache-handler.ts"),
     remote: require.resolve("./cache-handler.ts"),
   },
-
-  // SINGULAR handler — incremental cache: ISR, route handlers, and optimized
-  // images. Image routing needs `images.customCacheHandler` (16.2.0+), so this
-  // whole block is gated on the installed version.
-  ...(supportsImageCache
-    ? {
-        cacheHandler: require.resolve("./cache-handler-image.ts"),
-        // Disable Next's in-memory layer so every read goes to Redis.
-        cacheMaxMemorySize: 0,
-        images: { customCacheHandler: true },
-      }
-    : {}),
 };
+
+if (supportsImageCache) {
+  // SINGULAR handler — incremental cache: ISR, route handlers, and optimized
+  // images. Assigned via a loose cast because `images.customCacheHandler` only
+  // exists in Next 16.2.0+ and would otherwise fail typecheck on 16.0.x/16.1.x.
+  const cfg = nextConfig as Record<string, unknown>;
+  cfg.cacheHandler = require.resolve("./cache-handler-image.ts");
+  cfg.cacheMaxMemorySize = 0; // every read goes to Redis (no in-memory layer)
+  cfg.images = { customCacheHandler: true };
+}
 
 export default nextConfig;
