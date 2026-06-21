@@ -181,6 +181,11 @@ const nextConfig = {
 `images.customCacheHandler: true` is the opt-in that routes `kind: "IMAGE"`
 entries to your handler; it's slated to become the default in a future major.
 
+> **Image caching requires Next.js 16.2.0+.** `images.customCacheHandler` was
+> introduced in 16.2.0 — on 16.0.x/16.1.x it's an unrecognized config key and the
+> build fails. The `"use cache"` (plural) handler works on 16.0.0+; only the
+> image/`IMAGE` routing needs 16.2.0+.
+
 > **Should you cache images in Redis at all? Often, no.** Redis is RAM, and
 > `next/image` stores a *separate* entry per `(src, width, quality)` combo — many
 > multi-KB blobs add up fast and can evict your hot `"use cache"` data. Prefer, in

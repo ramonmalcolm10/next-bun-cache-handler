@@ -45,6 +45,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # 16.0.0 = core floor. The example gates the image config (16.2.0+) by
+          # Next version, so the "use cache" path is still exercised here.
           - label: "16.0.0 (floor)"
             next: "16.0.0"
             react: "19.2.0"
