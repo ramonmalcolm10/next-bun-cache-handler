@@ -33,18 +33,8 @@ jobs:
           VERSION="${GITHUB_REF_NAME#v}"
           npm version "$VERSION" --no-git-tag-version
 
+      # Publishes via npm Trusted Publishing (OIDC) — no token needed.
+      # Requires `id-token: write` (set above) and Trusted Publishing configured
+      # for this package on npmjs.com (repo + workflow = publish.yml).
       - name: Publish
         run: npm publish --provenance --access public
-        env:
-          # FIRST RELEASE ONLY: authenticate with an automation token.
-          # The package doesn't exist on npm yet, so npm Trusted Publishing (OIDC)
-          # can't be configured for it until after the first publish.
-          #
-          # After this first release:
-          #   1. On npmjs.com, enable Trusted Publishing for this package, linked
-          #      to this repo + workflow (.github/workflows/publish.yml).
-          #   2. Delete this `env:` block (and the NPM_TOKEN secret) so publishing
-          #      uses identity (OIDC) — matching next-bun-compile's tokenless setup.
-          #
-          # `--provenance` works with either auth method (it signs via id-token).
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
