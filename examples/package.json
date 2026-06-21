@@ -1,0 +1,23 @@
+{
+  "name": "next-bun-cache-handler-example",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun --bun next dev",
+    "build": "bun --bun next build",
+    "start": "bun --bun next start"
+  },
+  "dependencies": {
+    "next": "^16.2.0",
+    "next-bun-cache-handler": "file:..",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "typescript": "^5.6.0"
+  }
+}

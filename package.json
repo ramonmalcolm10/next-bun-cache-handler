@@ -1,0 +1,64 @@
+{
+  "name": "next-bun-cache-handler",
+  "version": "0.0.1",
+  "description": "A Bun-native cache handler for Next.js Cache Components (\"use cache\"), backed by Bun's built-in Redis client.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Ramon Malcolm",
+  "homepage": "https://github.com/ramonmalcolm10/next-bun-cache-handler#readme",
+  "bugs": {
+    "url": "https://github.com/ramonmalcolm10/next-bun-cache-handler/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramonmalcolm10/next-bun-cache-handler.git"
+  },
+  "keywords": [
+    "nextjs",
+    "next",
+    "cache",
+    "cache-handler",
+    "cache-components",
+    "use-cache",
+    "bun",
+    "redis",
+    "valkey"
+  ],
+  "engines": {
+    "bun": ">=1.2.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "bun": "./src/index.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "bun build ./src/index.ts --outdir ./dist --target bun --format esm --external bun && tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "bun-types": "^1.3.14",
+    "typescript": "^6.0.3"
+  },
+  "peerDependencies": {
+    "next": ">=16.0.0 <17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    }
+  }
+}
